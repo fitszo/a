@@ -9,7 +9,7 @@ export default function JoinUs() {
   async function joinUser(ev) {
     ev.preventDefault()
     try {
-      await axios.post("https://fitszo-api.vercel.app/register", {
+      await axios.post("https://fitszo-apib.vercel.app/register", {
         name,
         email,
         phone,
