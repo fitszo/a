@@ -1,47 +1,53 @@
 const express = require("express");
-const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const Partners_data = require('../api/models/Partners_data');
+const User = require("./models/User.js");
+const Contact = require("./models/Contactus.js");
 const app = express();
 
-dotenv.config();
-const PORT = process.env.PORT || 5000
-const MONGO = process.env.MONGO_API_KEY
+require("dotenv").config();
 
 app.use(express.json());
-
-app.use(cors({
+app.use(
+  cors({
+    credentials: true,
     origin: "https://fitszo-client.vercel.app/",
-    methods: ["GET", "POST"]
-}
-));
+  })
+);
 
-mongoose.connect(MONGO,
-    console.log('connected to mongodb')
-)
+mongoose.connect(process.env.MONGO_URL);
 
-app.get('/', (req, res) => {
-    res.json("Hello this is the backend");
-})
+app.get("/test", (req, res) => {
+  res.json("test ok");
+});
 
-app.post("/postgymdata", async (req, res) => {
+app.post("/register", async (req, res) => {
+  const { name, email, phone } = req.body;
+  try {
+    const userDoc = await User.create({
+      name,
+      email,
+      phone,
+    });
+    res.json(userDoc);
+  } catch (e) {
+    res.status(422).json(e);
+  }
+});
 
-    const data = {
-        "Partner_name": req.body.username,
-        "contact_no": req.body.contactno,
-    }
+app.post("/contact", async (req, res) => {
+  const { name, email, phone, massage } = req.body;
+  try {
+    const contactDoc = await Contact.create({
+      name,
+      email,
+      phone,
+      massage,
+    });
+    res.json(contactDoc);
+  } catch (e) {
+    res.status(422).json(e);
+  }
+});
 
-    try {
-        const data_status = await Partners_data.create(data);
-        res.json(data_status);
-        console.log(data_status);
-        res.status(200)
-    } catch (error) {
-        console.log(error.message)
-        res.status(500).json(error)
-    }
-
-})
-
-app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
+app.listen(4000);

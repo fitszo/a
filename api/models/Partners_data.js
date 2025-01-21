@@ -6,6 +6,10 @@ const Form_data = new Schema({
     type: String,
     required: true,
   },
+  Partner_mail: {
+    type: String,
+    required: true,
+  },
   contact_no: {
     type: Number,
     require: true,
