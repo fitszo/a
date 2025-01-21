@@ -12,7 +12,6 @@ app.use(
   cors({
     credentials: true,
     origin: "https://fitszo-client.vercel.app",
-    methods: ["POST", "GET"],
   })
 );
 
