@@ -12,7 +12,7 @@ const MONGO = process.env.MONGO_API_KEY
 app.use(express.json());
 
 app.use(cors({
-    origin: "https://fitszo-client.vercel.app/",
+    origin: "https://fitszo-client.vercel.app",
     methods: ["GET", "POST"]
 }
 ));
