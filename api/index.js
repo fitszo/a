@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const Partners_data = require('../api/models/Partners_data');
+const User = require('../api/models/User');
 const app = express();
 
 dotenv.config();
@@ -26,6 +27,20 @@ app.get('/', (req, res) => {
 })
 
 app.post("/register", async (req, res) => {
+  const { name, email, phone } = req.body;
+  try {
+    const userDoc = await User.create({
+      name,
+      email,
+      phone,
+    });
+    res.json(userDoc);
+  } catch (e) {
+    res.status(422).json(e);
+  }
+});
+
+app.post("/postgymdata", async (req, res) => {
 
     const data = {
         "Partner_name": req.body.username,
