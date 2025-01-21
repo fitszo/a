@@ -23,7 +23,7 @@ const JoinUs = () => {
     console.log(formvalues);
 
     try {
-      const data = await fetch("https://fitszo-apib.vercel.app/postgymdata", {
+      const data = await fetch("https://server.fitszo.com/postgymdata", {
         method: "POST",
         body: JSON.stringify(formvalues),
         headers: {
