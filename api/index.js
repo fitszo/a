@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const Partners_data = require('../backend/models/Partners_data');
+const Partners_data = require('../api/models/Partners_data');
 const bodyParser = require("body-parser");
 const app = express();
 
