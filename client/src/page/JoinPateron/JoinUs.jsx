@@ -105,20 +105,6 @@ const JoinUs = () => {
             <p>{formErrors.contactnodup}</p>
           )}
         </form>
-        <div className="images">
-          <div className="zoom-wrapper">
-            <img className="one" src={fit1} height={700} width={600} />
-          </div>
-          <div className="zoom-wrapper">
-            <img className="two" src={fit2} height={400} width={300} />
-          </div>
-          <div className="zoom-wrapper">
-            <img className="three" src={fit3} height={400} width={300} />
-          </div>
-          <div className="zoom-wrapper">
-            <img className="four" src={fit4} height={400} width={500} />
-          </div>
-        </div>
       </div>
     </>
   );
