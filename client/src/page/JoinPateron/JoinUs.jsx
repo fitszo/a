@@ -14,6 +14,7 @@ export default function JoinUs() {
         email,
         phone,
       });
+      console.log(name, email, phone);
       alert("Registration successful. Now you can log in");
       location.reload();
     } catch (e) {
