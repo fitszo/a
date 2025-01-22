@@ -30,6 +30,7 @@ app.post("/postgymdata", async (req, res) => {
     const data = {
         "Partner_name": req.body.username,
         "contact_no": req.body.contactno,
+        "Partner_mail": req.body.mail,
     }
 
     try {

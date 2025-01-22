@@ -11,6 +11,10 @@ const Form_data = new Schema({
     require: true,
     unique: true,
   },
+  Partner_mail: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Partner", Form_data);

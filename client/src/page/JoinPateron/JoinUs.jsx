@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const JoinUs = () => {
-  const initialvalues = { username: "", contactno: "" };
+  const initialvalues = { username: "", mail: "", contactno: "" };
   const [formvalues, setformvalues] = useState(initialvalues);
   const [formErrors, setformErrors] = useState({});
   const [issubmit, setissubmit] = useState(false);
@@ -58,6 +58,9 @@ const JoinUs = () => {
     if (!values.contactno) {
       errors.contactno = "contactno is required";
     }
+    if (!values.mail) {
+      errors.mail = "contactno is required";
+    }
 
     if (setduplicate) {
       errors.contactnodup = "Records for this contact number already exist";
@@ -93,6 +96,17 @@ const JoinUs = () => {
           />
           {!formvalues.contactno && formErrors.contactno && (
             <p>{formErrors.contactno}</p>
+          )}
+          <input
+            type="text"
+            name="mail"
+            placeholder="Gym Contact no"
+            required
+            value={formvalues.mail}
+            onChange={handlechange}
+          />
+          {!formvalues.mail && formErrors.mail && (
+            <p>{formErrors.mail}</p>
           )}
 
           <button type="submit" onClick={handlesubmit} className="subbtn">
