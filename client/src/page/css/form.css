@@ -1,0 +1,139 @@
+:root {
+	--color-yellow: #ffc600;
+	--color-white: #fff;
+	--color-black-80: rgba(0,0,0,0.8);
+	--color-grey1: #cdcdcd;
+	--color-black: #000;
+}
+
+.form-body {
+	font-family: Arial;
+	background-image: url('/form/cover.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+.form-color-white {
+	color: var(--color-white);
+}
+.form-padding {
+	padding: 3px;
+	background-color: var(--color-black-80);
+}
+
+.container-form {
+	width: 950px;
+	margin: 80px auto;
+	color: var(--color-yellow);
+	line-height: 1.5;
+}
+
+.text-center-form {
+	text-align: center;
+}
+
+.content-form {
+	display: flex;
+	margin-top: 40px;
+}
+
+.icon-form {
+	background-color: var(--color-white);
+	border-radius: 30px;
+	padding: 15px;
+	vertical-align: top;
+	height: auto;
+	width: 60px;
+}
+
+.contact-info-form {
+	display: inline-block;
+	padding: 4px 20px 0px 20px;
+}
+
+.address-line-form {
+	margin-top: 40px;
+}
+
+.col-1-form {
+	width: 530px;
+}
+
+.col-2-form {
+	flex: 1 1 auto;
+	background-color: var(--color-black-80);
+	box-shadow: 2px 2px 15px var(--color-yellow);
+	border-radius: 5%;
+}
+
+.form-container-form {
+	color: var(--color-white);
+	padding: 30px;
+}
+
+.contact-info-title-form {
+	color: var(--color-yellow);
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.form-row-form {
+	padding-bottom: 30px;
+}
+.form-h2 {
+	padding-bottom: 20px;
+}
+
+.form-field-form {
+	width: 100%;
+	border: none;
+	font-size: 20px;
+	outline: none;
+	background-color: transparent;
+	border-bottom: 1px solid var(--color-white);
+	resize: none;
+	color: var(--color-white);
+}
+.form-field-form::placeholder {
+	color: var(--color-grey1);
+}
+.form-field-form:focus {
+	border-bottom: 2px solid var(--color-white);
+}
+
+.send-btn-form {
+	padding: 9px 21px;
+	background-color: var(--color-yellow);
+	color: var(--color-black);
+	font-size: 18px;
+	border-radius: 16px;
+}
+
+@media all and (max-width: 1024px) {
+	.container-form {
+		width: auto;
+		padding: 30px;
+	}
+	 .col-1-form {
+		width: 360px;
+	} 
+}
+
+@media all and (max-width: 700px) {
+	.content-form {
+		display: block;
+	}
+	.col-2-form {
+		margin-top: 40px;
+	} 
+	.col-1-form{
+	width:100%;
+	}
+}
+
+@media all and (max-width: 500px) {
+	.container-form {
+		padding: 10px;
+	}
+}

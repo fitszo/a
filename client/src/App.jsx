@@ -4,7 +4,7 @@ import Layout from "./Layout";
 import IndexPage from "./page/IndexPage/IndexPage";
 import JoinUs from "./page/JoinPateron/JoinUs";
 import AboutUs from "./page/AboutUs/AboutUs";
-import ContactUs from "./page/AboutUs/ContactUs";
+import ContactUs from "./page/ContactUs/ContactUs";
 
 
 function App() {

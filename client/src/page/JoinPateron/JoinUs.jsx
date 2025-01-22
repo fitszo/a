@@ -58,9 +58,6 @@ const JoinUs = () => {
     if (!values.contactno) {
       errors.contactno = "contactno is required";
     }
-    if (!values.mail) {
-      errors.mail = "contactno is required";
-    }
 
     if (setduplicate) {
       errors.contactnodup = "Records for this contact number already exist";
@@ -101,7 +98,6 @@ const JoinUs = () => {
             type="text"
             name="mail"
             placeholder="Gym Contact no"
-            required
             value={formvalues.mail}
             onChange={handlechange}
           />
