@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/form.css";
+import { Helmet } from "react-helmet";
 
 const JoinUs = () => {
   const initialvalues = { username: "", mail: "", contactno: "" };
@@ -68,6 +69,13 @@ const JoinUs = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>Partner With Fitszo - List Your Fitness Zone</title>
+        <meta
+          property="og:title"
+          content="Partner With Fitszo - List Your Fitness Zone"
+        />
+      </Helmet>
       <div className="form-body">
         <div className="form-padding">
           <div className="container-form">
@@ -190,7 +198,6 @@ const JoinUs = () => {
           </div>
         </div>
       </div>
-      
     </>
   );
 };
