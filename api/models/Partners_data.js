@@ -13,7 +13,6 @@ const Form_data = new Schema({
   },
   Partner_mail: {
     type: String,
-    required: true,
   },
 });
 
