@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
     res.json("Hello this is the backend");
 })
 
-app.post("/postgymdata", async (req, res) => {
+app.post("/gyminfo", async (req, res) => {
 
     const data = {
         "Partner_name": req.body.username,

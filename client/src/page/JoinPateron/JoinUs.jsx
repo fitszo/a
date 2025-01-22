@@ -21,7 +21,7 @@ const JoinUs = () => {
     console.log(formvalues);
 
     try {
-      const data = await fetch("https://server.fitszo.com/postgymdata", {
+      const data = await fetch("https://server.fitszo.com/gyminfo", {
         method: "POST",
         body: JSON.stringify(formvalues),
         headers: {
