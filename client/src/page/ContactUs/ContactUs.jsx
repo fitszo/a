@@ -7,7 +7,6 @@ export default function ContactUs() {
   const [formvalues, setformvalues] = useState(initialvalues);
   const [formErrors, setformErrors] = useState({});
   const [issubmit, setissubmit] = useState(false);
-  const [duplicate, setduplicate] = useState(false);
   const a = "We have received your details!! Thank you";
 
   const handlechange = (e) => {
@@ -32,15 +31,13 @@ export default function ContactUs() {
       });
       console.log(data);
       if (!data.ok) {
-	throw new Error("Duplicate data entered");
+	throw new Error("There is an error");
       } else {
 	setissubmit(true);
 	setformvalues(initialvalues);
-	setduplicate(false);
       }
     } catch (err) {
       console.log(err);
-      setduplicate(true);
     }
   };
 
@@ -54,18 +51,14 @@ export default function ContactUs() {
     const errors = {};
     const regex = /^[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-/\s.]?[0-9]{4}$/;
 
-    if (!values.username) {
-      errors.username = "username is required";
+    if (!values.name) {
+      errors.name = "username is required";
     }
     if (!values.contactno) {
       errors.contactno = "contactno is required";
     }
-    if (!values.mail) {
-      errors.mail = "contactno is required";
-    }
-
-    if (setduplicate) {
-      errors.contactnodup = "Records for this contact number already exist";
+    if (!values.massege) {
+      errors.massege = "massege is required";
     }
 
     return errors;
@@ -129,7 +122,7 @@ export default function ContactUs() {
                 </div>
               </div>
               <div className="col-2-form">
-                <form>
+                <form onSubmit={handlesubmit}>
                   <div className="form-container-form">
                     <h2 className="form-h2">Send Message</h2>
                     <div className="form-row-form">
@@ -139,17 +132,15 @@ export default function ContactUs() {
                           type="text"
                           placeholder="Aapka naam"
                           className="form-field-form"
+                          autoFocus
+                          name="name"
+                          required
+                          value={formvalues.name}
+                          onChange={handlechange}
                         />
-                      </div>
-                    </div>
-                    <div className="form-row-form">
-                      <label></label>
-                      <div>
-                        <input
-                          type="email"
-                          placeholder="Email"
-                          className="form-field-form"
-                        />
+                        {!formvalues.name && formErrors.name && (
+                          <p>{formErrors.name}</p>
+                        )}
                       </div>
                     </div>
                     <div className="form-row-form">
@@ -159,6 +150,26 @@ export default function ContactUs() {
                           type="number"
                           placeholder="Phone"
                           className="form-field-form"
+                          name="contactno"
+                          required
+                          value={formvalues.contactno}
+                          onChange={handlechange}
+                        />
+                        {!formvalues.contactno && formErrors.contactno && (
+                          <p>{formErrors.contactno}</p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="form-row-form">
+                      <label></label>
+                      <div>
+                        <input
+                          type="email"
+                          placeholder="Email"
+                          className="form-field-form"
+                          name="mail"
+                          value={formvalues.mail}
+                          onChange={handlechange}
                         />
                       </div>
                     </div>
@@ -169,10 +180,24 @@ export default function ContactUs() {
                           type="text"
                           placeholder="How we can help you??"
                           className="form-field-form"
+                          required
+                          name="massege"
+                          value={formvalues.massege}
+                          onChange={handlechange}
                         />
+                        {!formvalues.massege && formErrors.massege && (
+                          <p>{formErrors.massege}</p>
+                        )}
                       </div>
                     </div>
-                    <button className="send-btn-form">Submit</button>
+                    <button
+                      type="submit"
+                      onClick={handlesubmit}
+                      className="send-btn-form"
+                    >
+                      Submit
+                    </button>
+                    {issubmit && <p className="Success">{a}</p>}
                   </div>
                 </form>
               </div>

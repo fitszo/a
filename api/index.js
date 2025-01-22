@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const Partners_data = require('../api/models/Partners_data');
+const ContactUs = require('../api/models/Contactus');
 const app = express();
 
 dotenv.config();
@@ -44,5 +45,24 @@ app.post("/gyminfo", async (req, res) => {
     }
 
 })
+
+app.post("/contactus", async (req, res) => {
+  const data = {
+    name: req.body.name,
+    contactno: req.body.contactno,
+    mail: req.body.mail,
+    massege: req.body.massege,
+  };
+
+  try {
+    const data_status = await ContactUs.create(data);
+    res.json(data_status);
+    console.log(data_status);
+    res.status(200);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json(error);
+  }
+});
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

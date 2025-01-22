@@ -101,9 +101,6 @@ const JoinUs = () => {
             value={formvalues.mail}
             onChange={handlechange}
           />
-          {!formvalues.mail && formErrors.mail && (
-            <p>{formErrors.mail}</p>
-          )}
 
           <button type="submit" onClick={handlesubmit} className="subbtn">
             Submit
