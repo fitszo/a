@@ -4,8 +4,6 @@ const JoinUs = () => {
   const initialvalues = { username: "", contactno: "" };
   const [formvalues, setformvalues] = useState(initialvalues);
   const [formErrors, setformErrors] = useState({});
-  const [btn, setBtn] = useState(true);
-  const [cls, setcls] = useState("btn_toggle");
   const [issubmit, setissubmit] = useState(false);
   const [duplicate, setduplicate] = useState(false);
   const a = "We have received your details!! Thank you";
