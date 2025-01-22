@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import "../css/form.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ContactUs() {
   const initialvalues = { name: "", mail: "", contactno: "", massege: "" };
