@@ -1,10 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Layout from "./Layout";
+import Layout from "./components/Layout";
 import IndexPage from "./page/IndexPage/IndexPage";
 import JoinUs from "./page/JoinPateron/JoinUs";
 import AboutUs from "./page/AboutUs/AboutUs";
 import ContactUs from "./page/ContactUs/ContactUs";
+import IndexPageBook from "./page/IndexPage/IndexPageBook";
 
 
 function App() {
