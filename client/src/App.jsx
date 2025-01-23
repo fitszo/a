@@ -5,7 +5,6 @@ import IndexPage from "./page/IndexPage/IndexPage";
 import JoinUs from "./page/JoinPateron/JoinUs";
 import AboutUs from "./page/AboutUs/AboutUs";
 import ContactUs from "./page/ContactUs/ContactUs";
-import IndexPageBook from "./page/IndexPage/IndexPageBook";
 
 
 function App() {
