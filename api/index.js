@@ -2,7 +2,6 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Partners_data = require('../api/models/Partners_data');
 const ContactUs = require('../api/models/Contactus');
@@ -97,7 +96,7 @@ app.post("/partner-register", async (req, res) => {
     if (existingUser)
       return res.status(400).json({ message: "User already exists" });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = password;
     const newPartner = new Partner({ email, password: hashedPassword });
     await newPartner.save();
 
@@ -107,17 +106,17 @@ app.post("/partner-register", async (req, res) => {
   }
 });
 
-app.post("/partner-login", async (req, res) => {
-  const { email, password } = req.body;
-  const partner = await Partner.findOne({ email });
+// app.post("/partner-login", async (req, res) => {
+//   const { email, password } = req.body;
+//   const partner = await Partner.findOne({ email });
 
-  if (!partner) return res.status(400).json({ message: "User not found" });
+//   if (!partner) return res.status(400).json({ message: "User not found" });
 
-  const isMatch = await bcrypt.compare(password, partner.password);
-  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+//   const isMatch = await bcrypt.compare(password, partner.password);
+//   if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-  const token = jwt.sign({ id: partner._id }, "secret", { expiresIn: "1h" });
-  res.json({ token, partner });
-});
+//   const token = jwt.sign({ id: partner._id }, "secret", { expiresIn: "1h" });
+//   res.json({ token, partner });
+// });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
