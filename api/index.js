@@ -112,8 +112,8 @@ app.post("/partner-login", async (req, res) => {
 
   if (!partner) return res.status(400).json({ message: "User not found" });
 
-  const isMatch = partner.password;
-  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+  if (partner.password !== password)
+    return res.status(400).json({ message: "Invalid credentials" });
 
   const token = jwt.sign({ id: partner._id }, "secret", { expiresIn: "1h" });
   res.json({ token, partner });
