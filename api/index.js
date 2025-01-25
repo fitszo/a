@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const Partners_data = require('../api/models/Partners_data');
 const ContactUs = require('../api/models/Contactus');
+const Partner = require('../api/models/PartnerLogin')
 const app = express();
 
 dotenv.config();
@@ -12,11 +13,12 @@ const MONGO = process.env.MONGO_API_KEY
 
 app.use(express.json());
 
-app.use(cors({
-    origin: "https://www.fitszo.com",
-    methods: ["GET", "POST"]
-}
-));
+app.use(
+  cors({
+    origin: ["https://www.fitszo.com", "https://partner.fitszo.com"],
+    methods: ["GET", "POST"],
+  })
+);
 
 mongoose.connect(MONGO,
     console.log('connected to mongodb')
@@ -63,6 +65,37 @@ app.post("/contactus", async (req, res) => {
     console.log(error.message);
     res.status(500).json(error);
   }
+});
+
+app.post("/partner-register", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const existingUser = await Partner.findOne({ email });
+
+    if (existingUser)
+      return res.status(400).json({ message: "User already exists" });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newPartner = new Partner({ email, password: hashedPassword });
+    await newPartner.save();
+
+    res.json({ message: "User registered successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error registering user" });
+  }
+});
+
+app.post("/partner-login", async (req, res) => {
+  const { email, password } = req.body;
+  const partner = await Partner.findOne({ email });
+
+  if (!partner) return res.status(400).json({ message: "User not found" });
+
+  const isMatch = await bcrypt.compare(password, partner.password);
+  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+
+  const token = jwt.sign({ id: partner._id }, "secret", { expiresIn: "1h" });
+  res.json({ token, partner });
 });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
