@@ -13,12 +13,31 @@ const MONGO = process.env.MONGO_API_KEY
 
 app.use(express.json());
 
+const allowedOrigins = [
+  "https://www.fitszo.com", // Vite frontend (adjust if needed)
+  "https://partner.fitszo.com", // Replace with your actual domain
+];
+
 app.use(
   cors({
-    origin: ["https://www.fitszo.com", "https://partner.fitszo.com"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST"],
+    credentials: true, // Allow cookies or authentication headers
   })
 );
+
+// app.use(
+//   cors({
+//     origin: ["https://www.fitszo.com", "https://partner.fitszo.com"],
+//     methods: ["GET", "POST"],
+//   })
+// );
 
 mongoose.connect(MONGO,
     console.log('connected to mongodb')
