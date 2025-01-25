@@ -6,4 +6,4 @@ const PartnerLogin = new Schema({
   password: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Partner", PartnerLogin);
+module.exports = mongoose.model("Partner_Login", PartnerLogin);
