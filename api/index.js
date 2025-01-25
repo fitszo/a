@@ -2,9 +2,12 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const Partners_data = require('../api/models/Partners_data');
 const ContactUs = require('../api/models/Contactus');
-const Partner = require('../api/models/PartnerLogin')
+const Partner = require('../api/models/PartnerLogin');
+
 const app = express();
 
 dotenv.config();
