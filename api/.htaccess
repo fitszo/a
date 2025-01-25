@@ -1,1 +1,2 @@
-Header set Access-Control-Allow-Origin https://www.fitszo.com, https://partner.fitszo.com
+Header set Access-Control-Allow-Origin https://www.fitszo.com
+Header set Access-Control-Allow-Origin https://partner.fitszo.com
