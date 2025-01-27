@@ -26,7 +26,7 @@ const AdminLog = () => {
       }
 
       setMessage("Registration Successful. Redirecting to login...");
-      setTimeout(() => navigate("/adminpage/:id"), 2000);
+      setTimeout(() => navigate("/adminpage"), 2000);
       localStorage.setItem("token", data.token);
     } catch (error) {
       setMessage(error.message);
