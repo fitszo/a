@@ -21,15 +21,10 @@ const AdminLog = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        <Link to={<Adminpage />} />;
-      }
-
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
-
-      setMessage("Login Successful");
+      <Link to={<Adminpage />} />;
       localStorage.setItem("token", data.token);
     } catch (error) {
       setMessage(error.message);
