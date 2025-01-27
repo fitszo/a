@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import Adminpage from "./adminpage";
+import { Link } from "react-router-dom";
 
 const AdminLog = () => {
   const [email, setEmail] = useState("");
