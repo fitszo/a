@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
-const Admin = () => {
+const AdminLog = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -78,4 +78,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminLog;
