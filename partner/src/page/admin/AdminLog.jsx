@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import Adminpage from "./adminpage";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AdminLog = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,7 +24,9 @@ const AdminLog = () => {
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
-      <Link to={<Adminpage />} />;
+
+      setMessage("Registration Successful. Redirecting to login...");
+      setTimeout(() => navigate("/adminpage"), 2000);
       localStorage.setItem("token", data.token);
     } catch (error) {
       setMessage(error.message);
