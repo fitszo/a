@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import Adminpage from "./adminpage";
 
 const AdminLog = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,10 @@ const AdminLog = () => {
       });
 
       const data = await response.json();
+
+      if (response.ok) {
+        <Link to={<Adminpage />} />;
+      }
 
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
