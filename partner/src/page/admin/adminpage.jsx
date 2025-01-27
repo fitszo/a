@@ -7,13 +7,13 @@ const AdminDashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // Redirect to login if no token
+      navigate("/admin/login"); // Redirect to login if no token
     }
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove token
-    navigate("/login"); // Redirect to login
+    navigate("/admin/login"); // Redirect to login
   };
 
   return (

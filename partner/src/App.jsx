@@ -11,8 +11,8 @@ function App() {
     <>
       <Routes>
         <Route index element={<Register />} />
-        <Route path="/login" element={<AdminLog />} />
-        <Route path="/adminpage" element={<AdminDashboard />} />
+        <Route path="/admin/login" element={<AdminLog />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </>
   );
