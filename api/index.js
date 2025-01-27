@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const Partners_data = require('../api/models/Partners_data');
 const ContactUs = require('../api/models/Contactus');
 const Partner = require('../api/models/PartnerLogin');
+const AdminLogin = require('../api/models/AdminLogin')
 
 const app = express();
 
@@ -117,6 +118,20 @@ app.post("/partner-login", async (req, res) => {
 
   const token = jwt.sign({ id: partner._id }, "secret", { expiresIn: "1h" });
   res.json({ token, partner });
+});
+
+
+app.post("/admin-login", async (req, res) => {
+  const { email, password } = req.body;
+  const admin = await AdminLogin.findOne({ email });
+
+  if (!admin) return res.status(400).json({ message: "Admin not found" });
+
+  if (admin.password !== password)
+    return res.status(400).json({ message: "Invalid credentials" });
+
+  const token = jwt.sign({ id: admin._id }, "secret", { expiresIn: "1h" });
+  res.json({ token, admin });
 });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
