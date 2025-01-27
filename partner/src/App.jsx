@@ -1,8 +1,8 @@
 import './App.css'
 import LogIn from './page/LogIn';
-import Admin from './page/admin/admin';
 import { Route, Routes } from "react-router-dom";
 import Register from './page/Register';
+import Admin from './page/admin/AdminLog';
 
 function App() {
 
