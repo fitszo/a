@@ -120,6 +120,24 @@ app.post("/partner-login", async (req, res) => {
   res.json({ token, partner });
 });
 
+app.post("/admin-register", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const existingUser = await AdminLogin.findOne({ email });
+
+    if (existingUser)
+      return res.status(400).json({ message: "User already exists" });
+
+    const hashedPassword = password;
+    const newPartner = new Partner({ email, password: hashedPassword });
+    await newPartner.save();
+
+    res.json({ message: "User registered successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error registering user" });
+  }
+});
+
 
 app.post("/admin-login", async (req, res) => {
   const { email, password } = req.body;
