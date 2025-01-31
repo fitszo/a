@@ -29,7 +29,7 @@ const handleLogin = async (e) => {
 
     localStorage.setItem("token", data.token);
     setMessage("Login Successful. Redirecting...");
-    setTimeout(() => navigate("/dashboard"), 2000);
+    setTimeout(() => navigate("/dashboard"), 1000);
   } catch (error) {
     setMessage(error.message);
   }
