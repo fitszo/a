@@ -2,13 +2,13 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 const Partners_data = require('../api/models/Partners_data');
 const ContactUs = require('../api/models/Contactus');
-const PartnerLogin = require("../api/models/PartnerLogin");
-const AdminLogin = require("../api/models/AdminLogin");
+const partnerRoutes = require("./routes/partnerRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
+
 
 dotenv.config();
 const PORT = process.env.PORT || 5000
@@ -71,5 +71,8 @@ app.post("/contactus", async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+app.use("/api/partner", partnerRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
