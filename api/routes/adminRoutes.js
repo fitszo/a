@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const Admin = require("../models/Admin");
-const Partner = require("../models/Partner");
+const Admin = require("../models/AdminLogin");
+const Partner = require("../models/PartnerLogin");
 const authenticate = require("../middleware/auth");
 
 const router = express.Router();
