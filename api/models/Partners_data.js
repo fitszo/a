@@ -16,4 +16,4 @@ const Form_data = new Schema({
   },
 });
 
-module.exports = mongoose.model("Partner", Form_data);
+module.exports = mongoose.model("Partner_data", Form_data);
