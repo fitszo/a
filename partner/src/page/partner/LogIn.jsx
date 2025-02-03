@@ -25,7 +25,7 @@ export default function Login() {
 
     const data = await response.json();
     if (response.ok) {
-      setToken(data.token, "partner");
+      setToken(data.token);
       navigate("/dashboard");
     } else {
       setError(data.message);
