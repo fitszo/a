@@ -14,7 +14,8 @@ export default function Login() {
     createParticles();
   }, []);
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setError("");
     const response = await fetch("https://server.fitszo.com/api/partner/login", {
       method: "POST",
@@ -24,7 +25,7 @@ export default function Login() {
 
     const data = await response.json();
     if (response.ok) {
-      setToken(data.token);
+      setToken(data.token, "partner");
       navigate("/dashboard");
     } else {
       setError(data.message);
