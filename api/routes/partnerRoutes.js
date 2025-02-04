@@ -1,6 +1,10 @@
 import express from "express";
-import { loginPartner, getPartnerDetails, logoutPartner } from "../control/partnerControl.js";
-import { verifyPartner } from "../middleware/auth.js";
+import {
+  loginPartner,
+  getPartnerDetails,
+  logoutPartner,
+} from "../control/partnerControl.js";
+import { verifyPartner } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
