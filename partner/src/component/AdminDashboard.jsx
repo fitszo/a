@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function AdminDashboard() {
   const [lastLogin, setLastLogin] = useState("");
@@ -21,17 +22,13 @@ function AdminDashboard() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: '20px' }}>
       <h1>Admin Dashboard</h1>
 
       <nav>
         <ul>
-          <li>
-            <Link to="/admin/partners/view">View Partners</Link>
-          </li>
-          <li>
-            <Link to="/admin/partners/create">Create Partner</Link>
-          </li>
+          <li><Link to="/admin/partners/view">View Partners</Link></li>
+          <li><Link to="/admin/partners/create">Create Partner</Link></li>
         </ul>
       </nav>
 
