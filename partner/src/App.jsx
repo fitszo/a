@@ -5,6 +5,8 @@ import Login from "./page/Login";
 import PartnerDashboard from "./component/PartnerDashboard";
 import AdminLogin from "./page/AdminLogin";
 import AdminDashboard from "./component/AdminDashboard";
+import CreatePartner from "./component/CreatePartner";
+import ViewPartners from "./component/ViewPartners";
 
 function App() {
   const [partnerAuth, setPartnerAuth] = useState(false);
@@ -49,6 +51,14 @@ function App() {
       <Route
         path="/admin/dashboard"
         element={adminAuth ? <AdminDashboard /> : <Navigate to="/admin" />}
+      />
+      <Route
+        path="/admin/partners/create"
+        element={adminAuth ? <CreatePartner /> : <Navigate to="/admin" />}
+      />
+      <Route
+        path="/admin/partners/view"
+        element={adminAuth ? <ViewPartners /> : <Navigate to="/admin" />}
       />
     </Routes>
   );

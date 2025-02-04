@@ -21,9 +21,20 @@ function AdminDashboard() {
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Admin Dashboard</h1>
-      <p>Last Login: {new Date(lastLogin).toLocaleString()}</p>
+
+      <nav>
+        <ul>
+          <li>
+            <Link to="/admin/partners/view">View Partners</Link>
+          </li>
+          <li>
+            <Link to="/admin/partners/create">Create Partner</Link>
+          </li>
+        </ul>
+      </nav>
+
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
