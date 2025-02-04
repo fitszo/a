@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 
 
 const Partners_data = require('../api/models/Partners_data');
@@ -17,6 +18,8 @@ const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5000
 const MONGO = process.env.MONGO_API_KEY
+const SESSION_SECRET = process.env.SESSION_SECRET
+const NODE_ENV = process.env.NODE_ENV
 
 app.use(express.json());
 
@@ -31,10 +34,19 @@ app.use(
 app.use(cookieParser());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 3600000 }, // 1 Hour timeout
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: MONGO, // MongoDB connection
+      collectionName: "sessions", // Optional: Custom session collection name
+      ttl: 60 * 60, // Session expiration time in seconds (1 hour)
+    }),
+    cookie: {
+      maxAge: 3600000, // 1 hour in milliseconds
+      httpOnly: true,
+      secure: NODE_ENV === "production", // Secure cookies in production
+    },
   })
 );
 
