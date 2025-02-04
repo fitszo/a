@@ -1,32 +1,46 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import FitnessZoneForm from "./FitnessZoneForm";
 
 function PartnerDashboard() {
-  const [lastLogin, setLastLogin] = useState("");
+  const [partner, setPartner] = useState(null);
+  const navigate = useNavigate(); // ✅ React Router's navigation hook
 
   useEffect(() => {
     fetch("https://server.fitszo.com/api/partner/details", {
       credentials: "include",
     })
-      .then((res) => res.json())
-      .then((data) => setLastLogin(data.lastLogin))
-      .catch((err) => console.log(err));
-  }, []);
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Unauthorized");
+        }
+        return res.json();
+      })
+      .then((data) => setPartner(data))
+      .catch(() => {
+        // ✅ Redirect to index page if unauthorized or no partner data
+        navigate("/");
+      });
+  }, [navigate]);
 
-  const handleLogout = async () => {
-    await fetch("https://server.fitszo.com/api/partner/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-    window.location.href = "/";
-  };
+  if (!partner) {
+    return <p>Loading...</p>; // Loading state while fetching partner details
+  }
 
-  return (
-    <div>
-      <h1>Partner Dashboard</h1>
-      <p>Last Login: {new Date(lastLogin).toLocaleString()}</p>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
-  );
+  if (
+    partner.fitnessZone.launched &&
+    partner.fitnessZone.details.status === "pending"
+  ) {
+    return (
+      <p>Your details are under review. We'll notify you once approved.</p>
+    );
+  }
+
+  if (!partner.fitnessZone.launched) {
+    return <FitnessZoneForm partner={partner} />;
+  }
+
+  return <h2>Welcome to your Dashboard!</h2>;
 }
 
 export default PartnerDashboard;
