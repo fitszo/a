@@ -9,8 +9,8 @@ import MongoStore from "connect-mongo";
 
 const Partners_data = require('../api/models/Partners_data');
 const ContactUs = require('../api/models/Contactus');
-const partnerRoutes = require("./routes/partnerRoutes");
-const adminRoutes = require("./routes/adminRoutes");
+import partnerRoutes from "./routes/partnerRoutes";
+import adminRoutes from "./routes/adminRoutes";
 
 const app = express();
 
