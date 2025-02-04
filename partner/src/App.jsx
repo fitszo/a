@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Login from "./page/LogIn";
+import Login from "./page/Login";
 import PartnerDashboard from "./component/PartnerDashboard";
 import AdminLogin from "./page/AdminLogin";
 import AdminDashboard from "./component/AdminDashboard";
