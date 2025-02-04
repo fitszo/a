@@ -1,6 +1,10 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Login from "./page/LogIn";
+import PartnerDashboard from "./component/PartnerDashboard";
+import AdminLogin from "../../api/models/AdminLogin";
+import AdminDashboard from "./component/AdminDashboard";
 
 function App() {
   const [partnerAuth, setPartnerAuth] = useState(false);
