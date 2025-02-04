@@ -1,4 +1,4 @@
-import Admin from "../models/Admin.js";
+import Admin from "../models/AdminLogin.js";
 import jwt from "jsonwebtoken";
 
 // Admin Login

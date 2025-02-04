@@ -1,4 +1,4 @@
-import Partner from "../models/Partner.js";
+import Partner from "../models/PartnerLogin.js";
 import jwt from "jsonwebtoken";
 
 // Partner Login
