@@ -1,9 +1,5 @@
 import express from "express";
-import {
-  loginPartner,
-  getPartnerDetails,
-  logoutPartner,
-} from "../control/partnerControl.js";
+import { loginPartner, getPartnerDetails, logoutPartner } from "../control/partnerControl.js";
 import { verifyPartner } from "../middleware/auth.js";
 
 const router = express.Router();

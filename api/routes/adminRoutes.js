@@ -1,9 +1,5 @@
 import express from "express";
-import {
-  loginAdmin,
-  getAdminDetails,
-  logoutAdmin,
-} from "../control/adminControl.js";
+import { loginAdmin, getAdminDetails, logoutAdmin } from "../control/adminControl.js";
 import { verifyAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
