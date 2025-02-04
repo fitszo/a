@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 
-
 import Partners_data from '../api/models/Partners_data';
 import ContactUs from '../api/models/Contactus';
 import partnerRoutes from "./routes/partnerRoutes";
@@ -26,7 +25,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["https://www.fitszo.com", "https://partner.fitszo.com"],
-    methods: ["GET", "POST"],
+    credentials: true
   })
 );
 
