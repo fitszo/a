@@ -1,14 +1,14 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const mongoose = require("mongoose");
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 
 
-const Partners_data = require('../api/models/Partners_data');
-const ContactUs = require('../api/models/Contactus');
+import Partners_data from '../api/models/Partners_data';
+import ContactUs from '../api/models/Contactus';
 import partnerRoutes from "./routes/partnerRoutes";
 import adminRoutes from "./routes/adminRoutes";
 
