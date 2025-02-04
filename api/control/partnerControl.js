@@ -34,3 +34,37 @@ export const getPartnerDetails = async (req, res) => {
 export const logoutPartner = (req, res) => {
   res.clearCookie("partnerToken").json({ message: "Logged out" });
 };
+
+// ✅ Register New Partner (Admin Only)
+export const registerPartner = async (req, res) => {
+  try {
+    const { name, email, password, fitnessZone } = req.body;
+
+    // Check if partner already exists
+    const existingPartner = await Partner.findOne({ email });
+    if (existingPartner) {
+      return res
+        .status(400)
+        .json({ message: "Partner already exists with this email." });
+    }
+
+    const newPartner = new Partner({ name, email, password, fitnessZone });
+    await newPartner.save();
+
+    res.status(201).json({ message: "Partner registered successfully!" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Server error while registering partner." });
+  }
+};
+
+// ✅ Get All Partners (Admin Only)
+export const getAllPartners = async (req, res) => {
+  try {
+    const partners = await Partner.find({}, "-password"); // Exclude passwords
+    res.json(partners);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching partners." });
+  }
+};
