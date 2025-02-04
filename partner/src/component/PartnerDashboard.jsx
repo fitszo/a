@@ -4,7 +4,7 @@ import FitnessZoneForm from "./FitnessZoneForm";
 
 function PartnerDashboard() {
   const [partner, setPartner] = useState(null);
-  const navigate = useNavigate(); // ✅ React Router's navigation hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://server.fitszo.com/api/partner/details", {
@@ -18,25 +18,25 @@ function PartnerDashboard() {
       })
       .then((data) => setPartner(data))
       .catch(() => {
-        // ✅ Redirect to index page if unauthorized or no partner data
-        navigate("/");
+        navigate("/"); // Redirect to index page if unauthorized
       });
   }, [navigate]);
 
   if (!partner) {
-    return <p>Loading...</p>; // Loading state while fetching partner details
+    return <p>Loading...</p>;
   }
 
-  if (
-    partner.fitnessZone.launched &&
-    partner.fitnessZone.details.status === "pending"
-  ) {
+  // ✅ Safe checks using optional chaining (?.)
+  const isLaunched = partner.fitnessZone?.launched;
+  const status = partner.fitnessZone?.details?.status;
+
+  if (isLaunched && status === "pending") {
     return (
       <p>Your details are under review. We'll notify you once approved.</p>
     );
   }
 
-  if (!partner.fitnessZone.launched) {
+  if (!isLaunched) {
     return <FitnessZoneForm partner={partner} />;
   }
 
