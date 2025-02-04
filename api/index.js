@@ -27,7 +27,6 @@ app.use(
   cors({
     origin: ["https://www.fitszo.com", "https://partner.fitszo.com"],
     methods: ["GET", "POST"],
-    credentials:true,
   })
 );
 
