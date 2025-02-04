@@ -68,3 +68,42 @@ export const getAllPartners = async (req, res) => {
     res.status(500).json({ message: "Error fetching partners." });
   }
 };
+
+export const submitFitnessZone = async (req, res) => {
+  try {
+    const {
+      gymName,
+      ownerName,
+      contactNo,
+      businessEmail,
+      gstin,
+      street,
+      pincode,
+      city,
+      district,
+      state,
+      locationLink,
+    } = req.body;
+    const partner = await Partner.findById(req.partnerId);
+
+    partner.fitnessZone.details = {
+      gymName,
+      ownerName,
+      contactNo,
+      businessEmail,
+      gstin,
+      address: { street, pincode, city, district, state, locationLink },
+      documents: {
+        infrastructureImage: req.files.infrastructureImage[0].path,
+        governmentDoc: req.files.governmentDoc[0].path,
+      },
+      status: "pending",
+    };
+    partner.fitnessZone.launched = true;
+
+    await partner.save();
+    res.json({ message: "Fitness Zone details submitted successfully!" });
+  } catch (error) {
+    res.status(500).json({ message: "Error submitting details" });
+  }
+};
