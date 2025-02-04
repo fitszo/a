@@ -1,17 +1,25 @@
-const jwt = require("jsonwebtoken");
-const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
+import jwt from "jsonwebtoken";
 
-const authenticate = (role) => (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1];
+// Partner Authentication Middleware
+export const verifyPartner = (req, res, next) => {
+  const token = req.cookies.partnerToken;
   if (!token) return res.status(401).json({ message: "Unauthorized" });
 
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err || decoded.role !== role) {
-      return res.status(403).json({ message: "Forbidden" });
-    }
-    req.user = decoded;
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(401).json({ message: "Invalid Token" });
+    req.partnerId = decoded.id;
     next();
   });
 };
 
-module.exports = authenticate;
+// Admin Authentication Middleware
+export const verifyAdmin = (req, res, next) => {
+  const token = req.cookies.adminToken;
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(401).json({ message: "Invalid Token" });
+    req.adminId = decoded.id;
+    next();
+  });
+};

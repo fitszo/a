@@ -2,6 +2,10 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const mongoose = require("mongoose");
+import cookieParser from "cookie-parser";
+import session from "express-session";
+
+
 const Partners_data = require('../api/models/Partners_data');
 const ContactUs = require('../api/models/Contactus');
 const partnerRoutes = require("./routes/partnerRoutes");
@@ -20,6 +24,17 @@ app.use(
   cors({
     origin: ["https://www.fitszo.com", "https://partner.fitszo.com"],
     methods: ["GET", "POST"],
+    credentials:true,
+  })
+);
+
+app.use(cookieParser());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 3600000 }, // 1 Hour timeout
   })
 );
 

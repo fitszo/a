@@ -1,28 +1,15 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const Partner = require("../models/PartnerLogin");
-const authenticate = require("../middleware/auth");
+import express from "express";
+import {
+  loginPartner,
+  getPartnerDetails,
+  logoutPartner,
+} from "../control/partnerControl.js";
+import { verifyPartner } from "../middleware/auth.js";
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
 
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const partner = await Partner.findOne({ email });
+router.post("/login", loginPartner);
+router.get("/details", verifyPartner, getPartnerDetails);
+router.post("/logout", verifyPartner, logoutPartner);
 
-  if (!partner || partner.password !== password) {
-    return res.status(401).json({ message: "Invalid credentials" });
-  }
-
-  const token = jwt.sign({ email, role: "partner" }, JWT_SECRET, {
-    expiresIn: "1h",
-  });
-  res.json({ token });
-});
-
-// Protected Dashboard
-router.get("/dashboard", authenticate("partner"), (req, res) => {
-  res.json({ message: "Welcome to Partner Dashboard" });
-});
-
-module.exports = router;
+export default router;

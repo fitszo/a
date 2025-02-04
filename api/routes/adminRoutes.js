@@ -1,43 +1,15 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const Admin = require("../models/AdminLogin");
-const Partner = require("../models/PartnerLogin");
-const authenticate = require("../middleware/auth");
+import express from "express";
+import {
+  loginAdmin,
+  getAdminDetails,
+  logoutAdmin,
+} from "../control/adminControl.js";
+import { verifyAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
 
-// Admin Login
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const admin = await Admin.findOne({ email });
+router.post("/login", loginAdmin);
+router.get("/details", verifyAdmin, getAdminDetails);
+router.post("/logout", verifyAdmin, logoutAdmin);
 
-  if (!admin || admin.password !== password) {
-    return res.status(401).json({ message: "Invalid credentials" });
-  }
-
-  const token = jwt.sign({ email, role: "admin" }, JWT_SECRET, {
-    expiresIn: "1h",
-  });
-  res.json({ token });
-});
-
-// Admin Dashboard
-router.get("/dashboard", authenticate("admin"), (req, res) => {
-  res.json({ message: "Welcome to Admin Dashboard" });
-});
-
-// Create Partner (Admin Only)
-router.post("/create-partner", authenticate("admin"), async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const newPartner = new Partner({ email, password });
-    await newPartner.save();
-    res.json({ message: "Partner created successfully" });
-  } catch (error) {
-    res.status(400).json({ message: "Error creating partner", error });
-  }
-});
-
-module.exports = router;
+export default router;

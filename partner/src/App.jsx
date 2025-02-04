@@ -1,23 +1,52 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
-
-import Login from "./page/partner/LogIn";
-import AdminLogin from "./page/admin/AdminLogin";
-import Dashboard from "./page/partner/DashBoard";
-import AdminDashboard from "./page/admin/AdminDashboard";
-import CreatePartner from "./page/admin/CreatePartner";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [partnerAuth, setPartnerAuth] = useState(false);
+  const [adminAuth, setAdminAuth] = useState(false);
+
+  useEffect(() => {
+    // Check Partner Authentication
+    fetch("https://server.fitszo.com/api/partner/details", {
+      credentials: "include",
+    })
+      .then((res) => {
+        if (res.ok) setPartnerAuth(true);
+      })
+      .catch(() => {});
+
+    // Check Admin Authentication
+    fetch("https://server.fitszo.com/api/admin/details", {
+      credentials: "include",
+    })
+      .then((res) => {
+        if (res.ok) setAdminAuth(true);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
-    <>
-      <Routes>
-        <Route index element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/admin/create-partner" element={<CreatePartner />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={partnerAuth ? <Navigate to="/dashboard" /> : <Login />}
+      />
+      <Route
+        path="/dashboard"
+        element={partnerAuth ? <PartnerDashboard /> : <Navigate to="/" />}
+      />
+      <Route
+        path="/admin"
+        element={
+          adminAuth ? <Navigate to="/admin/dashboard" /> : <AdminLogin />
+        }
+      />
+      <Route
+        path="/admin/dashboard"
+        element={adminAuth ? <AdminDashboard /> : <Navigate to="/admin" />}
+      />
+    </Routes>
   );
 }
 

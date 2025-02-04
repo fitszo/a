@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 
 const PartnerSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  name: String,
+  email: String,
+  password: String,
+  fitnessZone: String,
+  lastLogin: Date,
+  createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Partner", PartnerSchema, "partner_logins");
+export default mongoose.model("Partner", PartnerSchema, "partner_logins");
