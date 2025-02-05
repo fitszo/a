@@ -70,40 +70,65 @@ export const getAllPartners = async (req, res) => {
 };
 
 export const submitFitnessZone = async (req, res) => {
-  try {
-    const {
-      gymName,
-      ownerName,
-      contactNo,
-      businessEmail,
-      gstin,
-      street,
-      pincode,
-      city,
-      district,
-      state,
-      locationLink,
-    } = req.body;
-    const partner = await Partner.findById(req.partnerId);
+ try {
+   const {
+     gymName,
+     ownerName,
+     contactNo,
+     businessEmail,
+     gstin,
+     street,
+     pincode,
+     city,
+     district,
+     state,
+     locationLink,
+   } = req.body;
 
-    partner.fitnessZone.details = {
-      gymName,
-      ownerName,
-      contactNo,
-      businessEmail,
-      gstin,
-      address: { street, pincode, city, district, state, locationLink },
-      documents: {
-        infrastructureImage: req.files.infrastructureImage[0].path,
-        governmentDoc: req.files.governmentDoc[0].path,
-      },
-      status: "pending",
-    };
-    partner.fitnessZone.launched = true;
+   // ✅ Validate required fields
+   if (!gymName || !ownerName || !contactNo || !businessEmail) {
+     return res.status(400).json({ message: "Required fields are missing!" });
+   }
 
-    await partner.save();
-    res.json({ message: "Fitness Zone details submitted successfully!" });
-  } catch (error) {
-    res.status(500).json({ message: "Error submitting details" });
-  }
+   // ✅ Check if files were uploaded
+   if (
+     !req.files ||
+     !req.files.infrastructureImage ||
+     !req.files.governmentDoc
+   ) {
+     return res
+       .status(400)
+       .json({ message: "Both documents must be uploaded!" });
+   }
+
+   const partner = await Partner.findById(req.partnerId);
+   if (!partner) {
+     return res.status(404).json({ message: "Partner not found!" });
+   }
+
+   partner.fitnessZone.details = {
+     gymName,
+     ownerName,
+     contactNo,
+     businessEmail,
+     gstin,
+     address: { street, pincode, city, district, state, locationLink },
+     documents: {
+       infrastructureImage: req.files.infrastructureImage[0].path,
+       governmentDoc: req.files.governmentDoc[0].path,
+     },
+     status: "pending",
+   };
+   partner.fitnessZone.launched = true;
+
+   await partner.save();
+   res
+     .status(200)
+     .json({ message: "Fitness Zone details submitted successfully!" });
+ } catch (error) {
+   console.error("Server Error:", error); // ✅ Log detailed error
+   res
+     .status(500)
+     .json({ message: "Internal Server Error", error: error.message });
+ }
 };
